@@ -17,17 +17,19 @@ private:
 	int count;
 public:
 	TList();
+	~TList();
 	void InSertFirst(const ValType &val);
 	void InSertLast(const ValType &val);
 	void InSertInPos(const int pos, const ValType &val);
 	void DeleteFirst();
 	void DeleteLast();
 	void Delete(const int pos);
+	void DeleteAll();
 	ValType Show(const int pos);
-	int GetSize()
-	{
-		return count;
-	}
+	int GetSize(){return count;}
+	bool operator==(const TList &list) const;
+	bool operator!=(const TList &list) const;
+	TList& operator=(const TList &list);
 
 };
 #endif 
@@ -39,6 +41,13 @@ template<class ValType>
 	pLast = nullptr;
 	count = 0;
 }
+
+ template<class ValType>
+ TList<ValType>::~TList()
+ {
+	 DeleteAll();
+ }
+
 
 template<class ValType>
 void TList<ValType>::InSertFirst(const ValType &val)
@@ -65,7 +74,7 @@ void TList<ValType>::InSertInPos(const int pos,const ValType &val)
 	else
 	{
 		TNode *p = pFirst;
-		for (size_t i = 1;i < pos;i++)
+		for (int i = 1;i < pos;i++)
 		{
 			p = p->pNext;
 		}
@@ -106,7 +115,7 @@ template<class ValType>
 	 delete pFirst;
 	 pFirst = p;
 	 count--;
-	 if (pLast == nullptr)
+	 if (pFirst == nullptr)
 	 {
 		 pLast = nullptr;
 	 }
@@ -142,9 +151,17 @@ template<class ValType>
 		 TNode *next = p->pNext;
 		 delete p;;
 		 prev->pNext = next;
-		 next->pPrev - prev;
+		 next->pPrev = prev;
 		 count--;
 	 }
+ }
+
+ template<class ValType>
+  void TList<ValType>::DeleteAll()
+ {
+	  if (count == 0) return;
+	  while (count != 0)
+		  DeleteFirst();
  }
 
 template<class ValType>
@@ -162,4 +179,45 @@ template<class ValType>
 		 tmp = p->elem;
 	 }
 	 return tmp;
+ }
+
+ template<class ValType>
+ bool TList<ValType>::operator==(const TList<ValType> &list) const
+ {
+	 if (count != list.count)
+		 return false;
+
+	 TNode *tmp_one, *tmp_two;
+	 tmp_one = pFirst;
+	 tmp_two = list.pFirst;
+	 while (tmp_one != nullptr)
+	 {
+		 if (tmp_one->elem != tmp_two->elem)
+			 return false;
+		 tmp_one = tmp_one->pNext;
+		 tmp_two = tmp_two->pNext;
+	 }
+	 return true;
+ }
+
+ template<class ValType>
+ bool TList<ValType>::operator!=(const TList & list) const
+ {
+	 if (*this == list) return false;
+	 else return true;
+ }
+
+ template<class ValType>
+ TList<ValType>& TList<ValType>::operator=(const TList<ValType> &list)
+ {
+	 if (*this == list) return *this;
+	 DeleteAll();
+
+	 TNode *tmp = list.pFirst;
+	 while (tmp != nullptr)
+	 {
+		 InSertLast(tmp->elem);
+			 tmp = tmp->pNext;
+	 }
+	 return *this;
  }

@@ -224,5 +224,27 @@ TEST(TList, check_the_pos_after_del_in_pos_3)
 
 	EXPECT_EQ(list.Show(2), 3);
 }
+TEST(TList, check_size_after_del_all)
+{
+	TList<int> list;
 
+	list.InSertFirst(1);
+	list.InSertLast(3);
+	list.InSertInPos(2, 2);
+	list.InSertFirst(21);
+	list.DeleteAll();
 
+	EXPECT_EQ(0, list.GetSize());
+}
+TEST(TList, can_assign)
+{
+	TList<int> list_one;
+	TList<int> list_two;
+
+	list_two.InSertFirst(1);
+	list_two.InSertFirst(2);
+	
+	list_one = list_two;
+
+	EXPECT_EQ(list_one, list_two);
+}
