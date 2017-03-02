@@ -1,4 +1,4 @@
-#include"TList.h"
+﻿#include"TList.h"
 #include<gtest.h>
 
 TEST(TList, can_create_list)
@@ -73,7 +73,7 @@ TEST(TList,check_the_pos_after_insert_first_1)
 	list.InSertFirst(2);
 	list.InSertFirst(3);
 
-	EXPECT_EQ(list.Show(1), 3);
+	EXPECT_EQ(list.GetElem(1), 3);
 }
 TEST(TList, check_the_pos_after_insert_first_2)
 {
@@ -82,7 +82,7 @@ TEST(TList, check_the_pos_after_insert_first_2)
 	list.InSertFirst(2);
 	list.InSertFirst(3);
 
-	EXPECT_EQ(list.Show(2), 2);
+	EXPECT_EQ(list.GetElem(2), 2);
 }
 TEST(TList, check_the_pos_after_insert_first_3)
 {
@@ -91,7 +91,7 @@ TEST(TList, check_the_pos_after_insert_first_3)
 	list.InSertFirst(2);
 	list.InSertFirst(3);
 
-	EXPECT_EQ(list.Show(3), 1);
+	EXPECT_EQ(list.GetElem(3), 1);
 }
 
 TEST(TList, check_the_pos_after_insert_last_1)
@@ -101,7 +101,7 @@ TEST(TList, check_the_pos_after_insert_last_1)
 	list.InSertLast(2);
 	list.InSertLast(3);
 
-	EXPECT_EQ(list.Show(1), 1);
+	EXPECT_EQ(list.GetElem(1), 1);
 }
 TEST(TList, check_the_pos_after_insert_last_2)
 {
@@ -110,7 +110,7 @@ TEST(TList, check_the_pos_after_insert_last_2)
 	list.InSertLast(2);
 	list.InSertLast(3);
 
-	EXPECT_EQ(list.Show(2), 2);
+	EXPECT_EQ(list.GetElem(2), 2);
 }
 TEST(TList, check_the_pos_after_insert_last_3)
 {
@@ -119,7 +119,7 @@ TEST(TList, check_the_pos_after_insert_last_3)
 	list.InSertLast(2);
 	list.InSertLast(3);
 
-	EXPECT_EQ(list.Show(3), 3);
+	EXPECT_EQ(list.GetElem(3), 3);
 }
 
 TEST(TList, check_the_pos_after_insert_random_1)
@@ -129,7 +129,7 @@ TEST(TList, check_the_pos_after_insert_random_1)
 	list.InSertLast(3);
 	list.InSertInPos(2, 2);
 
-	EXPECT_EQ(list.Show(1), 1);
+	EXPECT_EQ(list.GetElem(1), 1);
 }
 TEST(TList, check_the_pos_after_insert_random_2)
 {
@@ -138,7 +138,7 @@ TEST(TList, check_the_pos_after_insert_random_2)
 	list.InSertLast(3);
 	list.InSertInPos(2, 2);
 
-	EXPECT_EQ(list.Show(2), 3);
+	EXPECT_EQ(list.GetElem(2), 3);
 }
 TEST(TList, check_the_pos_after_insert_random_3)
 {
@@ -147,7 +147,7 @@ TEST(TList, check_the_pos_after_insert_random_3)
 	list.InSertLast(3);
 	list.InSertInPos(2, 2);
 
-	EXPECT_EQ(list.Show(3), 2);
+	EXPECT_EQ(list.GetElem(3), 2);
 }
 
 TEST(TList, check_the_pos_after_del_insert_1)
@@ -158,7 +158,7 @@ TEST(TList, check_the_pos_after_del_insert_1)
 	list.InSertInPos(2, 2);
 	list.DeleteFirst();
 
-	EXPECT_EQ(list.Show(1), 3);
+	EXPECT_EQ(list.GetElem(1), 3);
 }
 
 TEST(TList, check_the_pos_after_del_insert_2)
@@ -170,7 +170,7 @@ TEST(TList, check_the_pos_after_del_insert_2)
 	list.DeleteFirst();
 	list.DeleteFirst();
 
-	EXPECT_EQ(list.Show(1), 2);
+	EXPECT_EQ(list.GetElem(1), 2);
 }
 
 TEST(TList, check_the_pos_after_del_last_1)
@@ -181,7 +181,7 @@ TEST(TList, check_the_pos_after_del_last_1)
 	list.InSertInPos(2, 2);
 	list.DeleteLast();
 
-	EXPECT_EQ(list.Show(2), 3);
+	EXPECT_EQ(list.GetElem(2), 3);
 }
 TEST(TList, check_the_pos_after_del_last_2)
 {
@@ -192,7 +192,7 @@ TEST(TList, check_the_pos_after_del_last_2)
 	list.DeleteLast();
 	list.DeleteLast();
 
-	EXPECT_EQ(list.Show(1), 1);
+	EXPECT_EQ(list.GetElem(1), 1);
 }
 TEST(TList, check_the_pos_after_del_in_pos_1)
 {
@@ -202,7 +202,7 @@ TEST(TList, check_the_pos_after_del_in_pos_1)
 	list.InSertInPos(2, 2);
 	list.Delete(1);
 
-	EXPECT_EQ(list.Show(1), 3);
+	EXPECT_EQ(list.GetElem(1), 3);
 }
 TEST(TList, check_the_pos_after_del_in_pos_2)
 {
@@ -212,7 +212,7 @@ TEST(TList, check_the_pos_after_del_in_pos_2)
 	list.InSertInPos(2, 2);
 	list.Delete(2);
 
-	EXPECT_EQ(list.Show(1), 1);
+	EXPECT_EQ(list.GetElem(1), 1);
 }
 TEST(TList, check_the_pos_after_del_in_pos_3)
 {
@@ -222,7 +222,7 @@ TEST(TList, check_the_pos_after_del_in_pos_3)
 	list.InSertInPos(2, 2);
 	list.Delete(3);
 
-	EXPECT_EQ(list.Show(2), 3);
+	EXPECT_EQ(list.GetElem(2), 3);
 }
 TEST(TList, check_size_after_del_all)
 {
@@ -247,4 +247,55 @@ TEST(TList, can_assign)
 	list_one = list_two;
 
 	EXPECT_EQ(list_one, list_two);
+}
+
+TEST(TList, can_assing_two_list)
+{
+	TList<int> list_one;
+	TList<int> list_two;
+
+	list_two.InSertFirst(1);
+	list_two.InSertFirst(2);
+
+	list_one.InSertFirst(1);
+	list_one.InSertFirst(2);
+
+	EXPECT_EQ(list_one, list_two);
+}
+
+TEST(TList, can_not_assing_two_list)
+{
+	TList<int> list_one;
+	TList<int> list_two;
+
+	list_two.InSertFirst(1);
+	list_two.InSertFirst(2);
+
+	list_one.InSertFirst(1);
+	list_one.InSertFirst(5);
+
+	EXPECT_NE(list_one, list_two);
+}
+TEST(TList, check_copy_list_1)
+{
+	TList<int> list_two;
+
+	list_two.InSertFirst(1);
+	list_two.InSertFirst(2);
+	list_two.InSertFirst(2);
+
+	TList<int> list_one(list_two);
+
+	EXPECT_EQ(list_one, list_two);
+}
+TEST(TList, check_copy_list_2)
+{
+	TList<int> list_two;
+
+	list_two.InSertFirst(1);
+	list_two.InSertFirst(2);
+
+	TList<int> list_one(list_two);
+
+	EXPECT_EQ(2, list_one.GetSize());
 }

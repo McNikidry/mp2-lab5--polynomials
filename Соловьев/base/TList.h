@@ -1,4 +1,4 @@
-#ifndef __TLIST_H__
+ï»¿#ifndef __TLIST_H__
 #define __TLIST_H__
 
 
@@ -12,11 +12,12 @@ private:
 		TNode *pNext;
 		TNode *pPrev;
 	};
-	TNode *pLast;
 	TNode *pFirst;
+	TNode *pLast;
 	int count;
 public:
 	TList();
+	TList(const TList &list);
 	~TList();
 	void InSertFirst(const ValType &val);
 	void InSertLast(const ValType &val);
@@ -25,22 +26,35 @@ public:
 	void DeleteLast();
 	void Delete(const int pos);
 	void DeleteAll();
-	ValType Show(const int pos);
+	ValType GetElem(const int pos);
 	int GetSize(){return count;}
 	bool operator==(const TList &list) const;
 	bool operator!=(const TList &list) const;
 	TList& operator=(const TList &list);
-
 };
 #endif 
 
 template<class ValType>
  TList<ValType>::TList()
 {
-	pFirst = nullptr;
-	pLast = nullptr;
+	 pFirst= pLast = nullptr;
 	count = 0;
 }
+
+ template<class ValType>
+ TList<ValType>::TList(const TList<ValType> &list)
+ {
+	 pFirst = pLast = nullptr;
+	 count = 0;
+	 int i = 0;
+	 TNode *tmp = list.pFirst;
+	 while (i != list.count)
+	 {
+		 InSertLast(tmp->elem);
+		 tmp = tmp->pNext;
+		 i++;
+	 }
+ }
 
  template<class ValType>
  TList<ValType>::~TList()
@@ -54,15 +68,18 @@ void TList<ValType>::InSertFirst(const ValType &val)
 {
 	TNode *p = new TNode;
 	p->elem = val;
-	p->pPrev = nullptr;
+	p->pPrev = pLast;
 	p->pNext = pFirst;
-
 	if (pFirst != nullptr)
+	{
 		pFirst->pPrev = p;
+	}
 	if (count == 0)
+	{
 		pFirst = pLast = p;
-	else pFirst = p;
-
+	}
+	else
+		pFirst = p;
 	count++;
 }
 template <class ValType>
@@ -78,14 +95,13 @@ void TList<ValType>::InSertInPos(const int pos,const ValType &val)
 		{
 			p = p->pNext;
 		}
-		TNode *tmp = new TNode;//íîâîå çâåíî
-		TNode *prev = p->pPrev;//óêàçûâàåò íà ïðåäûäóùèé
+		TNode *tmp = new TNode;//Ð½Ð¾Ð²Ð¾Ðµ Ð·Ð²ÐµÐ½Ð¾
+		TNode *prev = p->pPrev;//ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ Ð½Ð° Ð¿Ñ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰Ð¸Ð¹
 		
 		tmp->elem = val;
 		tmp->pNext = p;
 		tmp->pPrev = prev;
 		p->pPrev = tmp;
-
 		count++;
 	}
 }
@@ -94,16 +110,21 @@ void TList<ValType>::InSertLast(const ValType  &val)
 {
 	TNode *p = new TNode;
 	p->elem = val;
-	p->pNext = nullptr;
+	p->pNext = pFirst;
 	p->pPrev = pLast;
-
 	if (pLast != nullptr)
-		pLast->pNext= p;
+	{
+		pLast->pNext = p;
+	}
 	if (count == 0)
+	{
 		pFirst = pLast = p;
-	else pLast = p;
-
-	count++;
+	}
+	else
+	{
+		pLast = p;
+	}
+		count++;
 }
 
 
@@ -119,20 +140,22 @@ template<class ValType>
 	 {
 		 pLast = nullptr;
 	 }
-	 else pFirst->pPrev = nullptr;
+	 else pFirst->pPrev = pLast;
 }
 
  template<class ValType>
  inline void TList<ValType>::DeleteLast()
  {
-	 if (pLast == nullptr) return;
+	 if (pLast==0) return;
 	 TNode *p = pLast->pPrev;
 	 delete pLast;
 	 count--;
 	 pLast = p;
 	 if (pLast == nullptr)
+	 {
 		 pFirst = nullptr;
-	 else pLast->pNext = nullptr;
+	 }
+	 else pLast->pNext = pFirst;
 
  }
 
@@ -165,7 +188,7 @@ template<class ValType>
  }
 
 template<class ValType>
- ValType TList<ValType>::Show(const int pos)
+ ValType TList<ValType>::GetElem(const int pos)
  {
 	 if (pos<1 || pos>count) throw("there is no such position");
 	 ValType tmp;
@@ -186,16 +209,17 @@ template<class ValType>
  {
 	 if (count != list.count)
 		 return false;
-
+	 int i = 0;
 	 TNode *tmp_one, *tmp_two;
 	 tmp_one = pFirst;
 	 tmp_two = list.pFirst;
-	 while (tmp_one != nullptr)
+	 while (i!=count)
 	 {
 		 if (tmp_one->elem != tmp_two->elem)
 			 return false;
 		 tmp_one = tmp_one->pNext;
 		 tmp_two = tmp_two->pNext;
+		 i++;
 	 }
 	 return true;
  }
@@ -212,12 +236,13 @@ template<class ValType>
  {
 	 if (*this == list) return *this;
 	 DeleteAll();
-
+	 int i = 0;
 	 TNode *tmp = list.pFirst;
-	 while (tmp != nullptr)
+	 while (i!=list.count)
 	 {
 		 InSertLast(tmp->elem);
-			 tmp = tmp->pNext;
+		 tmp = tmp->pNext;
+		 i++;
 	 }
 	 return *this;
  }
